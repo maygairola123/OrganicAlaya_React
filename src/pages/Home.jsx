@@ -2,11 +2,7 @@ import TestimonialSection from "../components/TestimonialSection";
 import Banner from '../components/Banner';
 import { products } from '../data/Products'; // Adjust path if needed
 import ProductCard from '../components/ProductCard'; // You already use this
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/autoplay';
+
 
 
 
