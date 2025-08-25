@@ -13,12 +13,12 @@ import logo from '../assets/images/logo.jpg';
 export default function Footer() {
   return (
     <footer className="bg-green-900 text-white py-10 px-4">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8 place-items-center">
         
         {/* Brand Info */}
         <div>
            <img src={logo} alt="Logo" className="w-24 h-24 rounded-full object-cover" />
-          <h2 className="text-2xl font-bold text-green-100 mb-2">OrganicAlaya</h2>
+          <h2 className="text-2xl font-bold text-green-100 my-2">OrganicAlaya</h2>
           <p className="text-sm text-green-200">
             Delivering fresh, organic, and healthy produce from local farms to your doorstep.
           </p>

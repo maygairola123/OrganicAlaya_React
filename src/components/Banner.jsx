@@ -1,49 +1,52 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import bannerImg from '../assets/images/banner.jpg';
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const images = [
+  "/banner.png",       // image from public folder
+  "/banner.png",       // you can add more images here
+  "/banner1.jpg"
+];
+
+const slideVariants = {
+  initial: { opacity: 0, x: "100%" },
+  animate: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: "-100%" },
+};
 
 export default function Banner() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % images.length);
+    }, 2000); // 2 seconds
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div
-      className="w-full bg-cover bg-center h-[80vh] flex items-center justify-center text-white relative"
-      style={{
-  backgroundImage: `url(${bannerImg})`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-}}
-
-    >
-      <div className="bg-black bg-opacity-50 p-8 rounded-xl text-center">
-        <motion.h1
-          className="text-4xl md:text-5xl font-bold mb-4"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+    <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden">
+      <AnimatePresence>
+        <motion.img
+          key={images[index]}
+          src={images[index]}
+          alt={`Banner ${index}`}
+          variants={slideVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
           transition={{ duration: 0.8 }}
-        >
-          Fresh Organic Goodness Delivered
-        </motion.h1>
-
-        <motion.p
-          className="text-lg md:text-xl mb-6"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          100% farm-fresh, chemical-free, and eco-friendly products at your doorstep.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <Link to="/shop">
-            <button className="px-6 py-3 bg-green-500 hover:bg-green-600 rounded-full font-semibold transition">
-              Shop Now
-            </button>
-          </Link>
-        </motion.div>
+          className="absolute w-full h-full object-cover"
+        />
+      </AnimatePresence>
+      <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+        <div className="text-white text-center px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold drop-shadow-lg">
+            Welcome to OrganicAlaya
+          </h2>
+          <p className="mt-2 sm:text-lg md:text-xl">
+            Fresh from farms to your doorstep 🌿
+          </p>
+        </div>
       </div>
     </div>
   );

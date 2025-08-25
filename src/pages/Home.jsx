@@ -2,10 +2,9 @@ import TestimonialSection from "../components/TestimonialSection";
 import Banner from '../components/Banner';
 import { products } from '../data/Products'; // Adjust path if needed
 import ProductCard from '../components/ProductCard'; // You already use this
-
-
-
-
+import AboutUs from "../components/AboutUs";
+import { category } from "../data/Category";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const newLaunches = products.filter(product => product.isNewArrival);
@@ -55,29 +54,24 @@ export default function Home() {
       </section>
 
       {/* Category Navigation Section */}
-<section className="bg-white py-10 px-4 border-t border-b">
-  <div className="max-w-6xl mx-auto">
-    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-6 text-center text-sm text-brown-800">
-      {[
-        { icon: "🏷️", label: "Combos & Deals" },
-        { icon: "🌾", label: "Flours & Suji" },
-        { icon: "🍚", label: "Rice & Rice Products" },
-        { icon: "🥣", label: "Pulses & Dal" },
-        { icon: "🧴", label: "Oil & Ghee" },
-        { icon: "🧂", label: "Salts, Sugar & Jaggery" },
-        { icon: "🧄", label: "Spices & Masalas" },
-        { icon: "🥜", label: "Dry Fruits & Nuts" },
-        { icon: "🩺", label: "Health Foods" },
-  
-      ].map(({ icon, label }) => (
-        <div key={label} className="flex flex-col items-center justify-center gap-2 hover:scale-105 transition-transform">
-          <div className="text-3xl">{icon}</div>
-          <span className="text-xs font-medium text-center">{label}</span>
-        </div>
+<section className="bg-white py-10 border-t border-b">
+  <div className="w-full flex justify-center">
+    <div className="grid w-fit grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 p-4">
+      <div key={"Combos"} className=" cursor-pointer flex flex-col items-center justify-center gap-2 hover:scale-105 transition-transform">
+        <div className="text-3xl">🏷️</div>
+        <span className="text-xs font-medium text-center">Combos & Deals</span>
+      </div>
+
+      {category.map(({ id, categoryName, image }) => (
+        <Link to={`/category/${categoryName}`} state={{categoryData:{categoryName,id}}} key={id} className="flex cursor-pointer flex-col items-center justify-center gap-2 hover:scale-105 transition-transform">
+          <div className="text-3xl">{image}</div>
+          <span className="text-xs font-medium text-center">{categoryName}</span>
+        </Link>
       ))}
     </div>
   </div>
 </section>
+
 
 
       {/* Features Section */}
@@ -125,8 +119,9 @@ export default function Home() {
     )}
   </div>
 </section>
-
+       
       <TestimonialSection />
+      <AboutUs/>
     </>
   );
 }
